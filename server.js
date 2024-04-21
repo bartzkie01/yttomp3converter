@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ytdl = require('ytdl-core');
 const ffmpeg = require('fluent-ffmpeg');
-const path = require('path');
 const app = express();
 
 // Middleware
@@ -10,11 +9,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // Serve static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 
 // Serve the homepage
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(__dirname + '/public/index.html');
 });
 
 // Convert endpoint
@@ -26,7 +25,7 @@ app.post('/convert', (req, res) => {
         return res.status(400).json({ error: 'Please provide a YouTube URL' });
     }
 
-    // Check if the URL is valid
+    // Check if the URL is a valid YouTube URL
     if (!ytdl.validateURL(youtubeUrl)) {
         return res.status(400).json({ error: 'Invalid YouTube URL' });
     }
