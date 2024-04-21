@@ -18,18 +18,11 @@ function convertToMP3() {
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            throw new Error('Failed to convert YouTube URL');
         }
         return response.blob();
     })
     .then(blob => {
-        // Check if the response is an error message
-        if (blob.type === 'application/json') {
-            return blob.json().then(data => {
-                throw new Error(data.error);
-            });
-        }
-        
         // Create a temporary link element to trigger download
         var url = window.URL.createObjectURL(blob);
         var a = document.createElement('a');
