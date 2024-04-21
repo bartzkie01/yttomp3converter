@@ -1,4 +1,3 @@
-// Import necessary libraries
 const ytdl = require('ytdl-core');
 const ffmpeg = require('fluent-ffmpeg');
 
